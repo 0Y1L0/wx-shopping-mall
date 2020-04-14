@@ -52,7 +52,11 @@
         wx:key="name"
         url="{{item2.navigator_url}}"
         >
-        <image mode="{{index2===0?'widthFix':'scaleToFill'}}" src="{{item2.image_src}}"></image>
+        <image 
+				mode="{{index2===0?'widthFix':'scaleToFill'}}" 
+				src="{{item2.image_src}}"
+				class="{{index2===0?'first-image':''}}"
+				></image>
       </navigator>
       </view>
     </view>

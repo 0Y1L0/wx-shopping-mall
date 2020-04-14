@@ -43,3 +43,6 @@
   width: 100%;
   height: 100%;
 }
+.first-image{
+	height: 210px !important;
+}
