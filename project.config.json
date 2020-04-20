@@ -60,12 +60,20 @@
 					"id": -1,
 					"name": "search",
 					"pathName": "pages/search/index",
+					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
 					"name": "index",
 					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "category",
+					"pathName": "pages/category/index",
 					"scene": null
 				}
 			]

@@ -9,17 +9,7 @@ Page({
     floorList:[]
   },
 
-  onLoad: function (options) {
-    // 1 发送异步请求获取轮播图数据  优化的手段可以通过es6的 promise来解决这个问题 
-    // wx.request({
-    //   url: 'https://api.zbztb.cn/api/public/v1/home/swiperdata',
-    //   success: (result) => {
-    //     this.setData({
-    //       swiperList: result.data.message
-    //     })
-    //   }
-    // });
-    
+  onLoad: function (options) { 
     this.getSwiperList();
     this.getCateList();
     this.getFloorList();

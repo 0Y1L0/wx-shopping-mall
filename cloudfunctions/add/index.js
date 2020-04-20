@@ -11,8 +11,7 @@ const db = cloud.database()
 // 云函数入口函数
 exports.main = async (event, context) => {
 	const { dataBaseName, record} = event
-	// return db.collection("index-image").get()
-	return db.collection("index-image").add({
+	return db.collection("category").add({
 		data: {
 			...record
 		}
