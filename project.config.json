@@ -74,6 +74,13 @@
 					"id": -1,
 					"name": "category",
 					"pathName": "pages/category/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "cat",
+					"pathName": "pages/cart/index",
 					"scene": null
 				}
 			]
