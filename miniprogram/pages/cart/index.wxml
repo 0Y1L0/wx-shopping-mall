@@ -1,6 +1,6 @@
 <view class="revice_address_row">
   <view class="address_btn" wx:if="{{!address.userName}}"  >
-    <button bindtap="handleChooseAddress" type="primary"  plain  >获取收货地址</button>
+    <button bindtap="handleChooseAddress" open-type="getUserInfo" type="primary"  plain>获取收货地址</button>
   </view>
   <view wx:else  class="user_info_row" >
     <view class="user_info">

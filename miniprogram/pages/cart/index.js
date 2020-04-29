@@ -1,5 +1,7 @@
 import { getSetting, chooseAddress, openSetting, showModal, showToast } from "../../utils/asyncWx.js";
 import regeneratorRuntime from '../../lib/runtime/runtime';
+const app = getApp()
+
 Page({
 	data: {
 		address: {},
@@ -8,6 +10,14 @@ Page({
 		totalPrice: 0,
 		totalNum: 0
 	},
+
+	onLoad(){
+		// if (!app.globalData.userInfo) {
+		// 	wx.navigateTo({ url: '../login/index' })
+		// }
+		// console.log(app.globalData.userInfo)
+	},
+
 	onShow() {
 		const address = wx.getStorageSync("address");
 		const cart = wx.getStorageSync("cart") || [];
@@ -15,28 +25,21 @@ Page({
 		this.setData({ address });
 		this.setCart(cart);
 
-	},
+  },
+
 	// 点击 收货地址
 	async handleChooseAddress() {
 		try {
-			const res1 = await getSetting();
+      const res1 = await getSetting();
 			const scopeAddress = res1.authSetting["scope.address"];
 			if (scopeAddress === false) {
 				await openSetting();
 			}
-			// let address = await chooseAddress();
-			wx.chooseLocation({
-				success(res) {
-				  const latitude = res.latitude
-          const longitude = res.longitude
-          const speed = res.speed
-          const accuracy = res.accuracy
-			  }
-			})
+			let address = await chooseAddress();
 
-			// address.all = address.provinceName + address.cityName + address.countyName + address.detailInfo;
+			address.all = address.provinceName + address.cityName + address.countyName + address.detailInfo;
 
-			// wx.setStorageSync("address", address);
+			wx.setStorageSync("address", address);
 
 		} catch (error) {
 			console.log(error);
