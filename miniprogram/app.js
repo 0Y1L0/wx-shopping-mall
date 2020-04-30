@@ -22,7 +22,8 @@ App({
   },
 
 	globalData: {
-		
+    openid: '',
+    userInfo: {}
 	}
  
 });

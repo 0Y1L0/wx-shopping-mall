@@ -10,7 +10,7 @@ Page({
 		canIUse: wx.canIUse('button.open-type.getUserInfo')
 	},
 	//事件处理函数
-	bindViewTap: function () {
+	bindViewTap() {
 		wx.navigateTo({
 			url: '../logs/logs'
 		})
@@ -20,13 +20,12 @@ Page({
   * 生命周期函数--监听页面加载
 
   */
-  onLoad: function(options) {
-    var that = this;
-    //查看是否授权
+  async onLoad(options) {
+    await this.onGetOpenid()
     wx.getSetting({
       success: function(res) {
         if (res.authSetting['scope.userInfo']) {
-          wx.navigateTo({url: '../index/index' })
+          wx.switchTab({url: '../index/index' })
         } else {
           //用户没有授权
           console.log("用户没有授权");
@@ -35,31 +34,38 @@ Page({
     });
    },
   
-  bindGetUserInfo: function(res) {
+  async bindGetUserInfo(res) {
     if (res.detail.userInfo) {
-      //用户按了允许授权按钮
-      var that = this;
-      // 获取到用户的信息了，打印到控制台上看下
       console.log("用户的信息如下：");
-      console.log(res.detail.userInfo);
-      //授权成功后,通过改变 isHide 的值，让实现页面显示出来，把授权页面隐藏起来
-      that.setData({
-        isHide: false
-      });
+      app.globalData.userInfo = res.detail.userInfo
+      wx.switchTab({url: '../index/index' })
      } else {
-      //用户按了拒绝按钮
       wx.showModal({
         title: '警告',
         content: '您点击了拒绝授权，将无法查看个人信息，请授权之后再进入!!!',
         showCancel: false,
         confirmText: '返回授权',
-        success: function(res) {
-          // 用户没有授权成功，不需要改变 isHide 的值
+        success: res=> {
           if (res.confirm) {
             console.log('用户点击了“返回授权”');
           }
         }
       });
     }
-   }
+   },
+
+  onGetOpenid() {
+    // 调用云函数
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {},
+      success: res => {
+        console.log('[云函数] [login] user openid: ', res.result.openid)
+        app.globalData.openid = res.result.openid
+      },
+      fail: err => {
+        console.error('[云函数] [login] 调用失败', err)
+      }
+    })
+  },
 })

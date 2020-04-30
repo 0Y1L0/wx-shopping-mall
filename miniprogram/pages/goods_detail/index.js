@@ -1,5 +1,7 @@
 import { request } from "../../request/index.js";
 import regeneratorRuntime from '../../lib/runtime/runtime';
+const app = getApp()
+
 Page({
   data: {
     goodsObj: {},
@@ -48,13 +50,29 @@ Page({
     let cart = wx.getStorageSync("cart") || [];
     let index = cart.findIndex(v => v.goods_id === this.GoodsInfo.goods_id);
     if (index === -1) {
-      this.GoodsInfo.num = 1;
-      this.GoodsInfo.checked = true;
-      cart.push(this.GoodsInfo);
+      const { goods_id, goods_name, goods_price, goods_small_logo, goods_number } = this.GoodsInfo
+      const goodsInfo = {
+        num: 1,
+        checked: false,
+        goods_id,
+        goods_name,
+        goods_price,
+        goods_small_logo,
+        goods_number
+      }
+      cart.push(goodsInfo);
     } else {
       cart[index].num++;
     }
-    wx.setStorageSync("cart", cart);
+    // wx.setStorageSync("cart", cart);
+    wx.cloud.callFunction({
+      name: 'addToCard',
+      data: {
+        cart
+      }
+    }).then(({ result })=>{
+			console.log(result)
+    })
     wx.showToast({
       title: '加入成功',
       icon: 'success',

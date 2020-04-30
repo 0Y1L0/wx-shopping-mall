@@ -50,8 +50,6 @@ Page({
 		wx.stopPullDownRefresh();
 	},
 
-
-	// 标题点击事件 从子组件传递过来
 	handleTabsItemChange(e) {
 		const { index } = e.detail;
 		let { tabs } = this.data;

@@ -88,6 +88,14 @@
 					"id": -1,
 					"name": "login",
 					"pathName": "pages/login/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "detail",
+					"pathName": "pages/goods_detail/index",
+					"query": "goods_id=36889",
 					"scene": null
 				}
 			]
